@@ -12,11 +12,28 @@
     <!--
         根据id查询得到一个UerEntity对象s
      -->
-    <select id="getUser" parameterType="int"
-            resultType="com.alan344.model.UserEntity">
-        select * from users where id=#{id}
+    <select id="getUser" parameterType="int" resultType="com.alan344.model.UserEntity">
+        select
+          name
+        from users where id=#{id}
     </select>
-    <cache >
-        <property name="" value=""
-    </cache>
+
+    <select id="getUsers" resultType="com.alan344.model.UserEntity">
+        select
+          name
+        from users
+    </select>
+
+    <select id="getKeyMap" resultType="map">
+        SELECT
+          id,
+          name
+        FROM
+             users
+        where id in (
+                <foreach collection="collection" item="item" separator=",">
+                    #{item}
+                </foreach>
+                )
+    </select>
 </mapper>
